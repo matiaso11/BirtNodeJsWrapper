@@ -1,19 +1,21 @@
 var os = require('os');
 var childProcess = require('child_process');
+var uuid = require('node-uuid');
 var execOptions = {maxBuffer: 100*1024, encoding:'utf8', timeout:5000};
-var reportTemp = 'hello_world.rptdesign'
 
 function linuxGenReport(res, query){
     console.log(query);
+    tmpName = uuid.v1()+'.PDF';
     var child = childProcess.execFile('./ReportEngine/genReport.sh',
-     ['-f', 'PDF', './ReportTemp/'+reportTemp],
-     execOptions, function (err, stdout, stderr){
-       if (err){
-         console.log(err.stack);
+     ['-f', 'PDF','-o','./ReportTemp/'+tmpName, './ReportTemp/'+query.template], function (error, stdout, stderr){
+       if (error){
+         console.log(error.stack);
+         console.log('error code: '+error.code);
+         console.log('error signal: '+error.signal);
        }
      });
-     child.on('exit',function(){
-       console.log('Generate report.');
+     child.on('exit',function(code){
+       console.log('Generate report. Code: '+code);
      });
 }
 
