@@ -1,6 +1,7 @@
 var os = require('os');
 var childProcess = require('child_process');
 var uuid = require('node-uuid');
+var fs = require('fs');
 var execOptions = {maxBuffer: 100*1024, encoding:'utf8', timeout:5000};
 
 function linuxGenReport(res, query){
@@ -16,6 +17,18 @@ function linuxGenReport(res, query){
      });
      child.on('exit',function(code){
        console.log('Generate report. Code: '+code);
+       fs.readFile('./ReportTemp/'+tmpName, function(err, data){
+        if (err) {
+          res.writeHead(404);
+          res.end(JSON.stringify(err));
+          return;
+        }
+        res.writeHead(200);
+        res.end(data);
+      });
+      fs.unlink('ReportTemp/'+tmpName, function(err){
+        console.log(err ? "Usuwanie pliku nie powiodło się" : "Usunięto plik");
+      });
      });
 }
 
