@@ -6,9 +6,9 @@ var execOptions = {maxBuffer: 100*1024, encoding:'utf8', timeout:5000};
 
 function linuxGenReport(res, query){
     console.log(query);
-    tmpName = uuid.v1()+'.PDF';
+    tmpName = uuid.v1()+'.'+query.format;
     var child = childProcess.execFile('./ReportEngine/genReport.sh',
-     ['-f', 'PDF','-o','./ReportTemp/'+tmpName, './ReportTemp/'+query.template], function (error, stdout, stderr){
+     ['-f', query.format,'-o','./ReportTemp/'+tmpName, './ReportTemp/'+query.template], function (error, stdout, stderr){
        if (error){
          console.log(error.stack);
          console.log('error code: '+error.code);

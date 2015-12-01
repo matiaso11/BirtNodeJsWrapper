@@ -1,1 +1,1 @@
-http://127.0.0.1:8081/birt/genReport?template=kamilek.rpt&datasource=kamilek.xml
+http://127.0.0.1:8081/birt/genReport?template=hello_world.rptdesign&datasource=kamilek.xml&format=PDF
