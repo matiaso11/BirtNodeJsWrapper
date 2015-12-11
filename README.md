@@ -7,3 +7,8 @@ Aby zainstalować należy:
 4. Skopiować folder ReportEngine do poprzednio pobranego repo z gita.
 5. Dodać folder ReportTemp gdzie należy umieścić pliki *.rptdesign.
 6. npm install node-uuid w repo.
+7. Na windowsie w pliku genReport.bat zmienić:
+set BIRTCLASSPATH=
+for %%i in (%BIRT_HOME%\ReportEngine\lib\*.jar) do set BIRTCLASSPATH=%%i;!BIRTCLASSPATH!
+na:
+SET BIRTCLASSPATH=%BIRT_HOME%\ReportEngine\lib\*
